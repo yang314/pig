@@ -1,0 +1,230 @@
+#include "widget.h"
+#include "ui_widget.h"
+#include<QDialog>
+#include<QAction>
+#include<QMessageBox>
+
+
+Widget::Widget(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::Widget)
+{
+    s.show();
+    ui->setupUi(this);
+    ui->timer->setText(QString("<center><h1>养殖第%1天</h1></center>").arg(0));
+    connect(ui->begin,QPushButton::clicked,
+            [=]()
+    {
+        timerid=this->startTimer(1000);
+    });
+    connect(ui->stop,QPushButton::clicked,
+            [=]()
+    {
+        this->killTimer(timerid);
+    });
+    connect(&s,SIGNAL(mysinals()),this,SLOT(deal()));
+    connect(&c,SIGNAL(mysignal(int,int,int)),this,SLOT(thebuy(int,int,int)));
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+void Widget::timerEvent(QTimerEvent *event)
+{
+    static int sec=1;
+    ui->timer->setText(QString("<center><h1>养殖第%1天</h1></center>").arg(sec));
+    for(int i=0;i<100;i++)
+    {
+        for(int j=0;j<10;j++)
+        {
+            if(stys[i].pigs[j].time!=0)
+                {
+                stys[i].pigs[j].time++;
+                double k=(1.2)*rand()/(RAND_MAX);
+                stys[i].pigs[j].weight+=k;
+            }
+        }
+    }
+    if(sec%90==0)
+    {
+        blacksale=0;
+        tabbysale=0;
+        spottedsale=0;
+        for(int i=50;i<100;i++)
+        {
+            for(int j=0;j<10;j++)
+            {
+                if(stys[i].pigs[j].time>365&&stys[i].pigs[j].weight>150)
+                {
+                    blacksale+=stys[i].pigs[j].weight;
+                    stys[i].number--;
+                    stys[i].blacknum--;
+                    stys[i].pigs[j].colur=empty;
+                    stys[i].pigs[j].time=0;
+                    stys[i].pigs[j].weight=0;
+                }
+            }
+        }
+        for(int i=0;i<50;i++)
+        {
+            for(int j=0;j<10;j++)
+            {
+                if(stys[i].pigs[j].time>365&&stys[i].pigs[j].weight>150)
+                {
+                    if(stys[i].pigs[j].colur==tabby)
+                    {
+                        tabbysale+=stys[i].pigs[j].weight;
+                        stys[i].tabbynum--;
+                    }
+                    else {
+                        spottedsale+=stys[i].pigs[j].weight;
+                        stys[i].spottednum--;
+                    }
+                    stys[i].pigs[j].colur=empty;
+                    stys[i].pigs[j].time=0;
+                    stys[i].pigs[j].weight=0;
+                    stys[i].number--;                    
+                }
+            }
+        }
+        int ques=QMessageBox::question(this,"购买猪崽","是否自己购买猪崽");
+        switch(ques)
+        {
+        case QMessageBox::Yes:
+             c.show();
+             this->hide();
+             break;
+        case QMessageBox::No:
+             break;
+             }
+        sec++;
+    }
+}
+void Widget::deal()
+{
+    s.hide();
+    int ques=QMessageBox::question(this,"购买猪崽","是否自己购买猪崽");
+    switch(ques)
+    {
+    case QMessageBox::Yes:
+        c.show();
+        break;
+    case QMessageBox::No:
+        this->show();
+        break;
+    }
+}
+void Widget::thebuy(int black1,int litt1,int white1)
+{
+    for(int i=0;i<100;i++)
+    {
+        double k=stys[i].pigs[0].weight;
+    }
+    this->show();
+    for(int j=0;j<black1;)
+    {
+        if(blacksave==0)
+        {
+            blackmin=stys[50].number;
+            blacksave=1;
+            for(int i=50;i<100;i++)
+            {
+                if(stys[i].number==blackmin)
+                    whitesave++;
+                if(stys[i].number<blackmin)
+                {
+                    blackmin=stys[i].number;
+                    blacksave=1;
+                }
+            }
+        }
+        for(int i=50;i<100&&j<black1;i++)
+        {
+            {
+              if(stys[i].number==blackmin)
+              {
+                  stys[i].pigs[stys[i].number].colur=black;
+                  stys[i].pigs[stys[i].number].time=1;
+                  stys[i].number++;
+                  stys[i].blacknum++;
+                  blacksave--;
+                  j++;
+                  if(blacksave==0)
+                  break;
+              }
+            }
+        }
+    }
+    blacksave=0;
+    for(int j=0;j<litt1;)
+    {
+        if(whitesave==0)
+        {
+            whitemin=stys[0].number;
+            whitesave=1;
+            for(int i=0;i<50;i++)
+            {
+                if(stys[i].number==whitemin)
+                    whitesave++;
+                if(stys[i].number<whitemin)
+                {
+                    whitemin=stys[i].number;
+                    whitesave=1;
+                }
+            }
+        }
+        for(int i=0;i<50&&j<litt1;i++)
+        {
+            {
+              if(stys[i].number==whitemin)
+              {
+                  stys[i].pigs[stys[i].number].colur=tabby;
+                  stys[i].pigs[stys[i].number].time=1;
+                  stys[i].number++;
+                  stys[i].tabbynum++;
+                  whitesave--;
+                  j++;
+                  if(whitesave==0)
+                  break;
+              }
+            }
+        }
+    }
+    whitesave=0;
+    for(int j=0;j<white1;)
+    {
+        if(whitesave==0)
+        {
+            whitemin=stys[0].number;
+            whitesave=1;
+            for(int i=0;i<50;i++)
+            {
+                if(stys[i].number==whitemin)
+                    whitesave++;
+                if(stys[i].number<whitemin)
+                {
+                    whitemin=stys[i].number;
+                    whitesave=1;
+                }
+            }
+        }
+        for(int i=0;i<50&&j<white1;i++)
+        {
+            {
+              if(stys[i].number==whitemin)
+              {
+                  stys[i].pigs[stys[i].number].colur=spotted;
+                  stys[i].pigs[stys[i].number].time=1;
+                  stys[i].number++;
+                  stys[i].spottednum++;
+                  whitesave--;
+                  j++;
+                  if(whitesave==0)
+                  break;
+              }
+            }
+        }
+    }
+    whitesave=0;
+}
