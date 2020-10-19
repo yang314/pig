@@ -14,7 +14,8 @@ private:
     QPushButton b1,b2;
 public:
 
-
+protected:
+    void paintEvent(QPaintEvent *Event);
 
 signals:
     void mysinals();

@@ -49,6 +49,7 @@ public:
     double blacksale=0;
     double tabbysale=0;
     double spottedsale=0;
+    double sale=0;
 protected:
     void timerEvent(QTimerEvent *event);
 };

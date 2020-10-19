@@ -13,42 +13,98 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="QWidget" name="widget" native="true">
+  <widget class="QTextEdit" name="output">
    <property name="geometry">
     <rect>
-     <x>690</x>
-     <y>0</y>
-     <width>291</width>
+     <x>740</x>
+     <y>220</y>
+     <width>221</width>
+     <height>421</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>230</y>
+     <width>251</width>
      <height>141</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QPushButton" name="begin">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="stys">
       <property name="text">
-       <string>开始</string>
+       <string>查询猪圈：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineEdit"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pig">
+      <property name="text">
+       <string>查询猪：</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QPushButton" name="stop">
-      <property name="text">
-       <string>停止</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QTextEdit" name="timer"/>
+     <widget class="QLineEdit" name="lineEdit_2"/>
     </item>
    </layout>
   </widget>
-  <widget class="QTextEdit" name="output">
+  <widget class="QWidget" name="widget_3" native="true">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>320</y>
-     <width>271</width>
-     <height>321</height>
+     <x>0</x>
+     <y>10</y>
+     <width>321</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="spotted">
+      <property name="text">
+       <string>查询大白花猪</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="tabby">
+      <property name="text">
+       <string>查询小花猪</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="black">
+      <property name="text">
+       <string>查询黑猪</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QTextEdit" name="textEdit">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>80</y>
+     <width>311</width>
+     <height>141</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="timer">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>20</y>
+     <width>221</width>
+     <height>51</height>
     </rect>
    </property>
   </widget>
