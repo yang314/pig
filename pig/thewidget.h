@@ -11,7 +11,7 @@ class thewidget : public QWidget
 public:
     explicit thewidget(QWidget *parent = nullptr);
 private:
-    QPushButton b1,b2;
+    QPushButton b1;
 public:
 
 protected:

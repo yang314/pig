@@ -50,8 +50,10 @@ public:
     double tabbysale=0;
     double spottedsale=0;
     double sale=0;
+    int time;
 protected:
     void timerEvent(QTimerEvent *event);
+     void paintEvent(QPaintEvent *Event);
 };
 
 #endif // WIDGET_H

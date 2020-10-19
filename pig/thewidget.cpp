@@ -2,16 +2,14 @@
 #include<QPushButton>
 #include<QMessageBox>
 #include<QPainter>
+#include<QSizePolicy>
 thewidget::thewidget(QWidget *parent) : QWidget(parent)
 {
     b1.setParent(this);
-    b2.setParent(this);
-
-    b2.setText("退出");
+    b1.setFixedSize(250,50);
+    b1.setFlat(true);
     resize(700,700);
-    b1.move(300,426);
-    b2.move(400,500);
-    connect(&b2,&QPushButton::clicked,this,&thewidget::close);
+    b1.move(225,520);
     connect(&b1,&QPushButton::clicked,
     [=]()
     {
@@ -21,5 +19,5 @@ thewidget::thewidget(QWidget *parent) : QWidget(parent)
 void thewidget::paintEvent(QPaintEvent *Event)
 {
     QPainter p(this);
-    p.drawPixmap(0,0,width(),height(),QPixmap("../source/begin.jpg"));
+    p.drawPixmap(0,0,width(),height(),QPixmap("../source/timgDV1F3K3Y.jpg"));
 }

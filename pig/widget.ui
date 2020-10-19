@@ -22,12 +22,18 @@
      <height>421</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>6</pointsize>
+    </font>
+   </property>
   </widget>
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>230</y>
+     <y>330</y>
      <width>251</width>
      <height>141</height>
     </rect>
@@ -94,8 +100,14 @@
      <x>0</x>
      <y>80</y>
      <width>311</width>
-     <height>141</height>
+     <height>221</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>6</pointsize>
+    </font>
    </property>
   </widget>
   <widget class="QTextEdit" name="timer">
