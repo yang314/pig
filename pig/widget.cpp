@@ -28,12 +28,12 @@ Widget::Widget(QWidget *parent) :
         if(styss.length()!=1)
         st=st*10+int(stysss.at(1))-48;
         ui->textEdit->append(QString("<h1>第%1天时：</h1>").arg(time));
-        ui->output->append(QString("<h1>该猪圈黑猪数量：%1</h1>").arg(stys[st].blacknum));
-        ui->output->append(QString("<h1>该猪圈小花猪数量：%1</h1>").arg(stys[st].tabbynum));
-        ui->output->append(QString("<h1>该猪圈大白花猪数量：%1</h1>").arg(stys[st].spottednum));
+        ui->textEdit->append(QString("<h1>该猪圈黑猪数量：%1</h1>").arg(stys[st].blacknum));
+        ui->textEdit->append(QString("<h1>该猪圈小花猪数量：%1</h1>").arg(stys[st].tabbynum));
+        ui->textEdit->append(QString("<h1>该猪圈大白花猪数量：%1</h1>").arg(stys[st].spottednum));
         }
         else
-        ui->textEdit->append(QString("请输入所要查询的猪圈"));
+        ui->textEdit->append(QString("<h1>请输入所要查询的猪圈</h1>"));
     });//查询猪圈
     connect(ui->pig,&QPushButton::released,
             [=]()
@@ -42,23 +42,40 @@ Widget::Widget(QWidget *parent) :
         QString pigss=ui->lineEdit_2->text();
         if(styss.length()!=0&&pigss.length()!=0)
         {
-        QByteArray stysss=styss.toUtf8();
-        int st=int(stysss.at(0))-48;
-        if(styss.length()!=1)
-        st=st*10+int(stysss.at(1))-48;
-        QByteArray pigsss=pigss.toUtf8();
-        int pi=int(pigsss.at(0))-48;
-        ui->textEdit->append(QString("<h1>第%1天时：</h1>").arg(time));
-        ui->textEdit->append(QString("<h1>该猪种类：%1</h1>").arg(stys[st].pigs[pi].colur));
-        ui->textEdit->append(QString("<h1>该猪重量：%1</h1>").arg(stys[st].pigs[pi].weight));
-        ui->textEdit->append(QString("<h1>该猪饲养时间：%1</h1>").arg(stys[st].pigs[pi].time));
+            QByteArray stysss=styss.toUtf8();
+            int st=int(stysss.at(0))-48;
+            if(styss.length()!=1)
+            st=st*10+int(stysss.at(1))-48;
+            QByteArray pigsss=pigss.toUtf8();
+            int pi=int(pigsss.at(0))-48;
+            ui->textEdit->append(QString("<h1>第%1天时：</h1>").arg(time));
+            if(stys[st].pigs[pi].colur!=0)
+            {
+                switch (stys[st].pigs[pi].colur) {
+                case 1:
+                ui->textEdit->append(QString("<h1>该猪种类：黑猪</h1>"));
+                break;
+                case 2:
+                ui->textEdit->append(QString("<h1>该猪种类：小花猪</h1>"));
+                break;
+                case 3:
+                ui->textEdit->append(QString("<h1>该猪种类：大白花猪</h1>"));
+                break;
+                }
+                ui->textEdit->append(QString("<h1>该猪重量：%1</h1>").arg(stys[st].pigs[pi].weight));
+                 ui->textEdit->append(QString("<h1>该猪饲养时间：%1</h1>").arg(stys[st].pigs[pi].time));
+            }
+            else
+            {
+                ui->textEdit->append(QString("<h1>该位置并无养猪</h1>"));
+            }
         }
         else
         {
             if(styss.length()==0)
-            ui->textEdit->append(QString("请输入所要查询的猪圈"));
+            ui->textEdit->append(QString("<h1>请输入所要查询的猪圈</h1>"));
             if(pigss.length()==0)
-            ui->textEdit->append(QString("请输入所要查询的猪"));
+            ui->textEdit->append(QString("<h1>请输入所要查询的猪</h1>"));
         }
     });//查询猪圈的某头猪
     connect(ui->black,&QPushButton::clicked,
@@ -324,7 +341,7 @@ void Widget::thebuy(int black1,int litt1,int white1)//购买函数
             if(j!=0)
             ui->output->append(QString("<h1>因黑猪猪圈数量已满，此次仅成功买入黑猪数量:%1</h1>").arg(j));
             else
-            ui->output->append(QString("黑猪数量已满不可再加"));
+            ui->output->append(QString("<h1>黑猪数量已满不可再加</h1>"));
             break;
         }
         else
@@ -375,7 +392,7 @@ void Widget::thebuy(int black1,int litt1,int white1)//购买函数
             if(j!=0)
             ui->output->append(QString("<h1>因猪圈数量已满，此次仅成功买入小花猪数量:%1</h1>").arg(j));
             else
-            ui->output->append(QString("小花猪数量已满不可再加"));
+            ui->output->append(QString("<h1>小花猪数量已满不可再加</h1>"));
             break;
         }
         else
@@ -426,7 +443,7 @@ void Widget::thebuy(int black1,int litt1,int white1)//购买函数
             if(j!=0)
             ui->output->append(QString("<h1>因猪圈数量已满，此次仅成功买入大白花猪数量:%1</h1>").arg(j));
             else
-            ui->output->append(QString("大白花猪数量已满不可再加"));
+            ui->output->append(QString("<h1>大白花猪数量已满不可再加</h1>"));
             break;
         }
         else

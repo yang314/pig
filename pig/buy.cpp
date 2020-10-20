@@ -5,6 +5,7 @@
 #include<QDebug>
 #include<string.h>
 #include<QString>
+#include<QPainter>
 
 buy::buy(QWidget *parent) : QWidget(parent)
 {
@@ -49,14 +50,17 @@ buy::buy(QWidget *parent) : QWidget(parent)
         QByteArray litt=litt0.toUtf8();
         QByteArray white=white0.toUtf8();
         QByteArray black=black0.toUtf8();
+        if(black0.length()!=0)
         for(int i=0;i<black0.length();i++)
         {
             black1=black1*10+int(black.at(i))-48;
         }
+        if(litt0.length())
         for(int i=0;i<litt0.length();i++)
         {
             litt1=litt1*10+int(litt.at(i))-48;
         }
+        if(white0.length())
         for(int i=0;i<white0.length();i++)
         {
             white1=white1*10+white.at(i)-48;
@@ -68,4 +72,9 @@ buy::buy(QWidget *parent) : QWidget(parent)
         emit mysignal(black1,litt1,white1);
         });
 
+}
+void buy::paintEvent(QPaintEvent *Event)
+{
+    QPainter p(this);
+    p.drawPixmap(0,0,width(),height(),QPixmap("../source/timgs.gif"));
 }

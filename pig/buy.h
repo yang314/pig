@@ -17,6 +17,8 @@ signals:
 
 private:
     QPushButton b;
+protected:
+    void paintEvent(QPaintEvent *Event);
 
 public slots:
 };
